@@ -77,3 +77,11 @@ This will start the back-end process at `http://localhost:3000`. If port 3000 is
 install: npm i -D msw@2.1.6 (mock service worker)
 
 reference: https://mswjs.io/docs/network-behavior/rest
+
+### Generate Fake Data
+
+reference: https://fakerjs.dev/, https://fakerjs.dev/api/
+
+### Mocking Data (lesson 6)
+
+npm i -D @mswjs/data@0.16.1
