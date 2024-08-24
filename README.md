@@ -72,5 +72,8 @@ This will start the back-end process at `http://localhost:3000`. If port 3000 is
 
 ---
 
-Part: Mocking APIs
+## Part: Mocking APIs
+
 install: npm i -D msw@2.1.6 (mock service worker)
+
+reference: https://mswjs.io/docs/network-behavior/rest
