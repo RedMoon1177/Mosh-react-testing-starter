@@ -28,7 +28,7 @@ describe("ProductList", () => {
     expect(items.length).toBeGreaterThan(0);
   });
 
-  it("should render np products available if no product is found", async () => {
+  it("should render no products available if no product is found", async () => {
     // override the request sent to the mocked API endpoint in order to get back no data as expected
     server.use(http.get("/products", () => HttpResponse.json([])));
 
@@ -36,5 +36,14 @@ describe("ProductList", () => {
 
     const message = await screen.findByText(/no products/i);
     expect(message).toBeInTheDocument();
+  });
+
+  it("should render an error message when there is an error", async () => {
+    // override the request sent to the mocked API endpoint in order to get back an error as expected
+    server.use(http.get("/products", () => HttpResponse.error()));
+
+    render(<ProductList />);
+
+    expect(await screen.findByText(/error/i)).toBeInTheDocument();
   });
 });
