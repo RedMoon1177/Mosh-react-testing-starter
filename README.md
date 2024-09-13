@@ -1,4 +1,6 @@
 Learning: This is README.md from Mosh Hamedani's online programming courses on CodeWithMosh.com
+Starter: https://github.com/mosh-hamedani/react-testing-starter/tree/main
+Finish: https://github.com/mosh-hamedani/react-testing-finish/activity
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 # Testing React Apps
