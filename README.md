@@ -87,3 +87,7 @@ reference: https://fakerjs.dev/, https://fakerjs.dev/api/
 ### Mocking Data (lesson 6)
 
 npm i -D @mswjs/data@0.16.1
+
+### Mocking API - Lesson 15:
+
+run both fronend & backend: "npm start"

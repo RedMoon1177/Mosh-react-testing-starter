@@ -24,4 +24,7 @@ import { db } from "./db";
 // ];
 
 // the handlers above might be cumbersome so we will change to use the defined db object instead (our code will much simpler!!!)
-export const handlers = [...db.product.toHandlers("rest")];
+export const handlers = [
+  ...db.product.toHandlers("rest"),
+  ...db.category.toHandlers("rest"),
+];
