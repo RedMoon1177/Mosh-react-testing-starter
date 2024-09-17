@@ -8,6 +8,8 @@ import AllProviders from "../AllProviders";
 import { Category, Product } from "../../src/entities";
 import { db } from "../mocks/db";
 import { input } from "@testing-library/user-event/dist/cjs/event/input.js";
+import userEvent from "@testing-library/user-event";
+import { aw } from "vitest/dist/chunks/reporters.WnPwkmgA.js";
 
 describe("ProductForm", () => {
   let category: Category;
@@ -32,6 +34,7 @@ describe("ProductForm", () => {
           nameInput: screen.getByPlaceholderText(/name/i),
           priceInput: screen.getByPlaceholderText(/price/i),
           categoryInput: screen.getByRole("combobox", { name: /category/i }),
+          submitButton: screen.getByRole("button"),
         };
       },
     };
@@ -66,4 +69,33 @@ describe("ProductForm", () => {
     const { nameInput } = await waitForFormToLoad();
     expect(nameInput).toHaveFocus();
   });
+
+  it.each([
+    {
+      scenario: "missing",
+      errorMessage: /required/i,
+    },
+    {
+      scenario: "longer than 255 characters",
+      name: "a".repeat(256),
+      errorMessage: /255/i,
+    },
+  ])(
+    "should display an error if name is $scenario",
+    async ({ name, errorMessage }) => {
+      const { waitForFormToLoad } = renderComponent();
+      const form = await waitForFormToLoad();
+      const user = userEvent.setup();
+      if (name !== undefined) await user.type(form.nameInput, name);
+      await user.type(form.priceInput, "10");
+      await user.click(form.categoryInput);
+      const options = screen.getAllByRole("option");
+      await user.click(options[0]);
+      await user.click(form.submitButton);
+
+      const error = screen.getByRole("alert");
+      expect(error).toBeInTheDocument();
+      expect(error).toHaveTextContent(errorMessage);
+    }
+  );
 });
