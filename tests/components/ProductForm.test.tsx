@@ -3,7 +3,13 @@ import ProductForm from "../../src/components/ProductForm";
 import AllProviders from "../AllProviders";
 import { Category, Product } from "../../src/entities";
 import { db } from "../mocks/db";
+<<<<<<< HEAD
 import userEvent from "@testing-library/user-event";
+=======
+import { input } from "@testing-library/user-event/dist/cjs/event/input.js";
+import userEvent from "@testing-library/user-event";
+import { aw } from "vitest/dist/chunks/reporters.WnPwkmgA.js";
+>>>>>>> 70ddc086e60428c734a9f781d4f68b3609caaa6b
 
 describe("ProductForm", () => {
   let category: Category;
@@ -65,12 +71,19 @@ describe("ProductForm", () => {
         };
 
         return {
+<<<<<<< HEAD
           nameInput,
           priceInput,
           categoryInput,
           submitButton,
           fill,
           validData,
+=======
+          nameInput: screen.getByPlaceholderText(/name/i),
+          priceInput: screen.getByPlaceholderText(/price/i),
+          categoryInput: screen.getByRole("combobox", { name: /category/i }),
+          submitButton: screen.getByRole("button"),
+>>>>>>> 70ddc086e60428c734a9f781d4f68b3609caaa6b
         };
       },
     };
@@ -119,6 +132,7 @@ describe("ProductForm", () => {
   ])(
     "should display an error if name is $scenario",
     async ({ name, errorMessage }) => {
+<<<<<<< HEAD
       const { waitForFormToLoad, expectErrorToBeInTheDocument } =
         renderComponent();
 
@@ -164,6 +178,21 @@ describe("ProductForm", () => {
       await form.fill({ ...form.validData, price });
 
       expectErrorToBeInTheDocument(errorMessage);
+=======
+      const { waitForFormToLoad } = renderComponent();
+      const form = await waitForFormToLoad();
+      const user = userEvent.setup();
+      if (name !== undefined) await user.type(form.nameInput, name);
+      await user.type(form.priceInput, "10");
+      await user.click(form.categoryInput);
+      const options = screen.getAllByRole("option");
+      await user.click(options[0]);
+      await user.click(form.submitButton);
+
+      const error = screen.getByRole("alert");
+      expect(error).toBeInTheDocument();
+      expect(error).toHaveTextContent(errorMessage);
+>>>>>>> 70ddc086e60428c734a9f781d4f68b3609caaa6b
     }
   );
 });
